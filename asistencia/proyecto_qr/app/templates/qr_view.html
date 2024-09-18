@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="30">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <img id="qr-image" src="data:image/png;base64,{{qr_code}}" alt="Codigo QR">
+    <p>ID Único: {{ code_unique }}</p>
+    <p>Fecha del Escaneo: {{ timestamp.hour }}</p>
+    <p>Fecha del Escaneo: {{ timestamp.date }}</p>
+
+
+</div>   
+
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #qr-image {
+            border: 2px solid black;
+                width: 200px;
+                height: 200px;
+                display: block;
+                margin: 0 auto; 
+        }
+    </style>
+</body>
+</html>

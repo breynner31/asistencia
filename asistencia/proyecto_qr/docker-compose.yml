@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./app
+    container_name: python_qr
+    ports:
+      - '5008:5008'
+    depends_on:
+      - db
+    environment:
+      - FLASK_ENV=development      
+    volumes:
+      - ./app:/app
+    networks:
+      - app_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: brey
+      MYSQL_DATABASE: user_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - app_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  bot:
+    build: ./bot
+    depends_on:
+      - db
+      - app
+    ports:
+      - "5003:5003"
+    networks:
+      - app_network  
+  
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:
